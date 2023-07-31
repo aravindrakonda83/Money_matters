@@ -1,0 +1,32 @@
+/* Add your custom CSS styles for YourTransactions component here */
+
+/* Example styles for transaction items */
+.transaction-item {
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.transaction-item p {
+  margin: 5px 0;
+}
+
+/* Example styles for tab buttons */
+.tab-buttons {
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  margin-right: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.tab-button.active {
+  background-color: #007bff;
+  color: #fff;
+}
