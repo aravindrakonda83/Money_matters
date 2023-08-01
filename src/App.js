@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
 import axios from "axios";
 import LoginForm from "./LoginForm.js";
 import Sidebar from "./Sidebar";
@@ -55,26 +56,24 @@ const App = () => {
         {isLoggedIn ? (
           <React.Fragment>
             <Sidebar isAdmin={userRole === "admin"} />
-            <Switch>
-              <Route path="/dashboard" exact>
-                <Dashboard isAdmin={userRole === "admin"} userId={userId} />
+            <Route path="/dashboard" exact>
+              <Dashboard isAdmin={userRole === "admin"} userId={userId} />
+            </Route>
+            {userRole === "admin" ? (
+              <Route path="/all-transactions" exact>
+                <AllTransactions />
               </Route>
-              {userRole === "admin" ? (
-                <Route path="/all-transactions" exact>
-                  <AllTransactions />
-                </Route>
-              ) : (
-                <Route path="/your-transactions" exact>
-                  <YourTransactions userId={userId} />
-                </Route>
-              )}
-              <Route path="/profile" exact>
-                <Profile userId={userId} />
+            ) : (
+              <Route path="/your-transactions" exact>
+                <YourTransactions userId={userId} />
               </Route>
-              <Route path="/logout" exact>
-                <Logout onLogout={handleLogout} />
-              </Route>
-            </Switch>
+            )}
+            <Route path="/profile" exact>
+              <Profile userId={userId} />
+            </Route>
+            <Route path="/logout" exact>
+              <Logout onLogout={handleLogout} />
+            </Route>
           </React.Fragment>
         ) : (
           <LoginForm onLogin={handleLogin} />
