@@ -1,20 +1,20 @@
 import { useState } from "react";
 import { confirmAlert } from "react-confirm-alert";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Logout = ({ onLogout }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [showConfirmation, setShowConfirmation] = useState(true);
 
   const handleLogout = () => {
     // Perform any logout logic or API calls here if needed
     onLogout();
-    history.push("/");
+    navigate("/");
   };
 
   const handleCancel = () => {
     setShowConfirmation(false);
-    history.goBack();
+    navigate(-1); // Go back
   };
 
   const handleConfirmLogout = () => {
@@ -39,7 +39,7 @@ const Logout = ({ onLogout }) => {
     });
   }
 
-  return null; // This component doesn't render anything; it just handles the logout logic and confirmation
+  return null;
 };
 
 export default Logout;
