@@ -36,7 +36,6 @@ const YourTransactions = () => {
         ...newTransactions,
       ]);
 
-      // If the API response has fewer transactions than the pageSize, it means no more data available
       if (newTransactions.length < pageSize) {
         setHasMore(false);
       } else {
@@ -51,37 +50,32 @@ const YourTransactions = () => {
 
   useEffect(() => {
     const fetchTransactions = async () => {
-      // Call loadTransactions when the component mounts
+     
       await loadTransactions();
     };
 
     fetchTransactions();
 
-    // Cleanup function to reset transactions when the component unmounts
+    
     return () => {
       setTransactions([]);
     };
   });
 
-  // Rest of the component code...
 
-  // State to manage the update form
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
 
-  // Function to show the update form
   const showUpdateTransactionForm = (transaction) => {
     setSelectedTransaction(transaction);
     setShowUpdateForm(true);
   };
 
-  // Function to close the update form
   const closeUpdateTransactionForm = () => {
     setSelectedTransaction(null);
     setShowUpdateForm(false);
   };
 
-  // Function to handle updating the transaction
   const handleUpdateTransaction = async (updatedTransaction) => {
     const updatedTransactions = transactions.map((transaction) =>
       transaction.id === updatedTransaction.id
@@ -91,19 +85,18 @@ const YourTransactions = () => {
     setTransactions(updatedTransactions);
   };
 
-  // Function to handle deleting a transaction
+ 
   const handleDeleteTransaction = async (transactionId) => {
     try {
       const apiEndpoint =
         "https://bursting-gelding-24.hasura.app/api/rest/delete-transaction";
 
-      // Make the API call to delete the transaction
       await axios.delete(`${apiEndpoint}/${transactionId}`);
 
-      // Show a success toast message
+  
       alert("Transaction deleted successfully");
 
-      // Remove the deleted transaction from the state
+      
       setTransactions((prevTransactions) =>
         prevTransactions.filter(
           (transaction) => transaction.id !== transactionId
@@ -120,7 +113,6 @@ const YourTransactions = () => {
 
   const renderTransactions = () => {
     return transactions.map((transaction) => (
-      // Render each transaction item here
       <div key={transaction.id}>
         <p>Transaction Name: {transaction.name}</p>
         <p>Category: {transaction.category}</p>
@@ -136,7 +128,7 @@ const YourTransactions = () => {
     ));
   };
 
-  // Function to show the confirmation dialog before deleting a transaction
+  
   const confirmDeleteTransaction = (transactionId) => {
     confirmAlert({
       title: "Confirm Deletion",
